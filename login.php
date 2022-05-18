@@ -1,10 +1,5 @@
 <?php
-    try {
-        $dbh = new PDO('mysql:host=127.0.0.1:3307;dbname=nit', 'root', '');
-    } catch (PDOException $e) {
-        print "Error!: " . $e->getMessage();
-        die();
-    }
+    require_once 'config.php';
     $data = $_POST;
 
     // Пользователь нажимает на кнопку "Авторизоваться" и код начинает выполняться
