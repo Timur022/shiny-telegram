@@ -1,11 +1,5 @@
 <?php
-    session_start();
-    try {
-        $dbh = new PDO('mysql:host=127.0.0.1:3307;dbname=nit', 'root', '');
-    } catch (PDOException $e) {
-        print "Error!: " . $e->getMessage();
-        die();
-    }
+    require_once 'config.php';
 ?>
 <!DOCTYPE html>
 <html lang="ru">
