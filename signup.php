@@ -1,5 +1,3 @@
-<?php  session_start();
-?>
 <!DOCTYPE html>
     <head>
     	<meta charset="utf-8">
@@ -21,12 +19,7 @@
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="css/responsive.css">
         <?php
-            try {
-              $dbh = new PDO('mysql:host=127.0.0.1:3307;dbname=nit', 'root', '');
-            } catch (PDOException $e) {
-              print "Error!: " . $e->getMessage();
-              die();
-            }
+            require_once 'config.php';
          ?>
     </head>
     <body>
