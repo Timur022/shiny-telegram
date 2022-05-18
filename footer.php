@@ -1,10 +1,5 @@
 <?php
-	try {
-        $dbh = new PDO('mysql:host=127.0.0.1:3307;dbname=nit', 'root', '');
-    } catch (PDOException $e) {
-        print "Error!: " . $e->getMessage();
-        die();
-    }
+    require_once 'config.php';
     if (isset($_POST['news_submit'])){
 	    $to = $_POST['newsletter_email'];
 	    $subject = "Спасибо за подписку!";
