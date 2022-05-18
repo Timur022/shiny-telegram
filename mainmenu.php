@@ -1,10 +1,5 @@
 <?php
-	try {
-        $dbh = new PDO('mysql:host=127.0.0.1:3307;dbname=nit', 'root', '');
-    } catch (PDOException $e) {
-        print "Error!: " . $e->getMessage();
-        die();
-    }
+    require_once 'config.php';
     $co = $dbh->prepare("SELECT * FROM product");
     $co->execute();
     $product = $co->fetchAll(PDO::FETCH_ASSOC);
