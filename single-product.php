@@ -1,11 +1,5 @@
 <?php
-    session_start();
-    try {
-        $dbh = new PDO('mysql:host=127.0.0.1:3307;dbname=nit', 'root', '');
-    } catch (PDOException $e) {
-        print "Error!: " . $e->getMessage();
-        die();
-    }
+    require_once 'config.php';
     $us = $dbh->prepare("SELECT * FROM product ORDER BY id DESC");
     $us->execute();
     $product = $us->fetchAll(PDO::FETCH_ASSOC);
