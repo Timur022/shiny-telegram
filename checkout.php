@@ -390,37 +390,43 @@
                                             $us = $dbh->prepare("SELECT * FROM composition WHERE user=".$_COOKIE['id'] );
                                             $us->execute();
                                             $composition = $us->fetchAll(PDO::FETCH_ASSOC);
-                                            $table_comp = '';
+                                            $table_comp = '<table class="5cecc39b9b313282info-table" cellpadding="0" cellspacing="0" style="border-bottom-color:#222;border-bottom-style:dotted;border-bottom-width:1px;padding:5px 0 5px 0;width:100%"><tbody><tr><td style="padding:5px;text-align:left;vertical-align:top">N</td><td style="padding:5px;text-align:left;vertical-align:top">Наим. пр.</td><td style="padding:5px;text-align:right;vertical-align:top">Цена за ед. пр.</td><td style="padding:5px;text-align:right;vertical-align:top">Колич. пр.</td><td style="padding:5px;text-align:right;vertical-align:top">Стоимость пр.</td></tr>';
                                             for ($i=0; $i < count($composition); $i++) {
                                                 $us = $dbh->prepare("SELECT * FROM product WHERE id=".$composition[$i]['product'] );
                                                 $us->execute();
                                                 $com_prod = $us->fetch(PDO::FETCH_ASSOC);
                                                 $composition_n = $composition[$i]['id'];
-                                                $table_comp .= '<tr class="cart_item">';
+                                                $table_comp .= '<tr>';
                                              ?>
                                             <tr class="cart_item">
                                                 <?php
-                                                $table_comp .= '<td class="product-name">
-                                                    '.$com_prod['name'].' <strong class="product-quantity">× '.$composition[$i]['quantity'].'</strong> </td>
-                                                <td class="product-total">
-                                                    <span class="amount">'.$composition[$i]['amount'].' руб.</span> </td>';
+                                                $table_comp .= '<td style="padding:5px;text-align:left;vertical-align:top">'.strval($i+1).'.</td><td style="padding:5px;text-align:left;vertical-align:top">
+                                                    '.$com_prod['name'].'</td><td style="padding:5px;text-align:right;vertical-align:top">'.$com_prod['price'].'</td>
+                                                <td style="padding:5px;text-align:right;vertical-align:top">
+                                                    '.$composition[$i]['quantity'].'</td><td style="padding:5px;text-align:right;vertical-align:top">'.$composition[$i]['amount'].'</td>';
                                                 echo '<td class="product-name">
                                                     '.$com_prod['name'].' <strong class="product-quantity">× '.$composition[$i]['quantity'].'</strong> </td>
                                                 <td class="product-total">
                                                     <span class="amount">'.$composition[$i]['amount'].' руб.</span> </td>';
                                                  ?>
                                             </tr>
-                                        <?php } ?>
+                                        <?php
+                                            $table_comp .= '</tr>';
+                                        }
+
+                                        $compsum = 0;
+                                        for ($i=0; $i < count($composition); $i++) {
+                                            $compsum = $compsum + $composition[$i]['amount'];
+                                        }
+                                        $table_comp .= '<tr><td style="padding:5px;text-align:left;vertical-align:top">'.strval(count($composition)+1).'.</td><td style="padding:5px;text-align:left;vertical-align:top">Доставка<br><div style="display:inline-block;font-size:0.8em"></div><br><div style="display:inline-block;font-size:0.8em;white-space:nowrap">Признак способа расчета: ПОЛНЫЙ РАСЧЕТ</div></td><td style="padding:5px;text-align:right;vertical-align:top">200</td><td style="padding:5px;text-align:right;vertical-align:top">'.$user_shipp['ship'].'</td><td style="padding:5px;text-align:right;vertical-align:top">'.strval($user_shipp['ship']*200).'</td></tr></tbody></table>';
+                                        $table_comp .= '<table class="b8862a3dd1fb10e5totals-table" cellpadding="0" cellspacing="0" style="border-bottom-color:#222;border-bottom-style:dotted;border-bottom-width:1px;padding:5px 0 5px 0;width:100%"><tbody><tr class="289d16d160a45f1dtotals-row" style="font-size:1.2em;font-weight:bold"><td>Итого</td><td style="padding:5px 0 5px 0;text-align:right">'.strval(($user_shipp['ship']*200)+$compsum).'</td></tr><tr><td>БЕЗНАЛИЧНЫМИ</td><td style="padding:5px 0 5px 0;text-align:right">'.strval(($user_shipp['ship']*200)+$compsum).'</td></tr></tbody></table>';
+                                        ?>
                                         </tbody>
                                         <tfoot>
 
                                             <tr class="cart-subtotal">
                                                 <th>Промежуточный итог</th>
                                                 <?php
-                                                $compsum = 0;
-                                                for ($i=0; $i < count($composition); $i++) {
-                                                    $compsum = $compsum + $composition[$i]['amount'];
-                                                }
                                                 echo '<td><span class="amount">'.$compsum.' руб.</span></td>';
                                                  ?>
                                             </tr>
@@ -468,48 +474,14 @@
                             </form>
                             <?php
                             if (isset($_POST['woocommerce_checkout_place_order'])) {
+                                $table_comp .= '<table class="5cecc39b9b313282info-table" cellpadding="0" cellspacing="0" style="padding:5px 0 5px 0;width:100%"><tbody><tr><td style="padding:5px;width:50%">ЭЛ. АДР. ПОКУПАТЕЛЯ: <br><a href="mailto:'.$_POST['billing_email'].'" target="_blank" rel="noopener noreferrer">'.$_POST['billing_email'].'</a></td><td style="padding:5px">ЭЛ. АДР. ОТПРАВИТЕЛЯ: <br><a href="mailto:orenburg.nit.56@bk.ru" target="_blank" rel="noopener noreferrer">orenburg.nit.56@bk.ru</a></td></tr><tr><td style="padding:5px;width:50%">Сайт ФНС: <a href="https://www.nalog.gov.ru/" data-link-id="1" target="_blank" rel="noopener noreferrer">www.nalog.gov.ru</a></td><td style="padding:5px"></td></tr></tbody></table>';
                                 $to = $_POST['billing_email'];
                                 $subject = "Оплата прошла №".$composition_n;
                                 $headers = 'Content-type: text/html; charset=utf-8' . "\r\n";
-                                $message = '<h3 id="order_review_heading">Ваш заказ</h3>
-
-                                <div id="order_review" style="position: relative;">
-                                    <table class="shop_table">
-                                        <thead>
-                                            <tr>
-                                                <th class="product-name">Товар</th>
-                                                <th class="product-total">Стоимость</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            '.$table_comp.'
-                                        </tbody>
-                                        <tfoot>
-
-                                            <tr class="cart-subtotal">
-                                                <th>Промежуточный итог</th><td><span class="amount">'.$compsum.' руб.</span></td>
-                                            </tr>
-
-                                            <tr class="shipping">
-                                                <th>Доставка и погрузочно-разгрузочные работы</th>
-                                                <td>
-                                                    '.strval($user_shipp['ship']*200).' руб.
-                                                </td>
-                                            </tr>
-
-
-                                            <tr class="order-total">
-                                                <th>Итого</th>
-                                                <td><strong><span class="amount">
-                                                '.strval(($user_shipp['ship']*200)+$compsum).' руб.
-                                            </span></strong> </td>
-                                            </tr>
-
-                                        </tfoot>
-                                    </table>';
+                                $message = '<div style="background-color:#fff;font-family:"courier new" , "courier" , "lucida sans typewriter" , "lucida typewriter" , monospace;margin:0"><div class="bc273c589cd66e20container" style="margin:15px auto 0 auto;padding:15px;width:700px">
+                                <div class="a02c3ea6ae6091ffirm-name" style="padding:2.5px;text-align:center">ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "НИТ"</div><div class="fd0c0a5385563155firm-inn" style="padding:2.5px;text-align:center">ИНН: <span class="wmi-callto">7736207543</span></div><div class="46ef6b38ce73b33dlocation-address" style="padding:2.5px;text-align:center">141281, Россия, Оренбургская обл., г. Оренбург, пр. Парковый, д. 13</div><div class="5bef35048cf8a97eheader" style="font-size:1.5em;font-weight:bold;padding:5px;text-align:center">Кассовый чек. Приход</div><table class="5cecc39b9b313282info-table" cellpadding="0" cellspacing="0" style="border-bottom-color:#222;border-bottom-style:dotted;border-bottom-width:1px;padding:5px 0 5px 0;width:100%"><tbody><tr><td style="padding:5px 0 5px 0;width:60%">Смена N 22</td><td style="padding:5px 0 5px 0">'.date("d.m.y H:i").'</td></tr></tbody></table>'.$table_comp.'</div></div>';
 
                                 if (mail($to,$subject,$message,$headers)) {
-                                    echo "OK";
                                     $dbh->prepare("DELETE FROM composition WHERE user=?")->execute([$_COOKIE['id']]);
                                     $dbh->prepare("UPDATE user SET ship=? WHERE id=?")->execute([0, $_COOKIE['id']]);
 

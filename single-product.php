@@ -327,12 +327,12 @@
                                     <div class="product-f-image">
                                         <?php echo '<img src="img/'.$prod_cat[$i]['foto'].'1.png" alt="">'; ?>
                                         <div class="product-hover">
-                                            <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> В корзину</a>
-                                            <a href="" class="view-details-link"><i class="fa fa-link"></i> Подробнее</a>
+                                            <?php echo '<a href="upd_cart.php?product_id='.$prod_cat[$i]['id'].'&quantity=1&cart=1" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> В корзину</a>'; ?>
+                                            <?php echo '<a href="single-product.php?product=' . $prod_cat[$i]['name'] . '&foto=1" class="view-details-link"><i class="fa fa-link"></i> Подробнее</a>'; ?>
                                         </div>
                                     </div>
 
-                                    <?php echo '<h2><a href="">'.$prod_cat[$i]['name'].'</a></h2>'; ?>
+                                    <?php echo '<h2><a href="single-product.php?product=' . $prod_cat[$i]['name'] . '&foto=1">'.$prod_cat[$i]['name'].'</a></h2>'; ?>
 
                                     <div class="product-carousel-price">
                                         <?php echo '<ins>'.$prod_cat[$i]['price'].' руб.</ins>'; ?>

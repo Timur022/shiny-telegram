@@ -11,7 +11,7 @@
 	    $message = 'Вы подписались на новости. Спасибо!';
 
 		if (mail($to,$subject,$message,$headers)) {
-		    $dbh->prepare("UPDATE user SET newsletter=? WHERE id=?")->execute([1, $_COOKIE['id']]);
+		    $dbh->prepare("UPDATE user SET newsletter=? WHERE id=?")->execute([$to, $_COOKIE['id']]);
 		}
 		else {
 		    echo "ERROR";

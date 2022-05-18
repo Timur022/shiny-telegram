@@ -49,7 +49,7 @@
 
     <div class="maincontent-area">
       <div class="container" style="margin: 50px;">
-        <form action="add_prod.php">
+        <form action="add_prod.php" enctype="multipart/form-data">
           <table>
             <tr>
               <td style="padding: 10px;"><label for="review">Наименование товара: </label></td>

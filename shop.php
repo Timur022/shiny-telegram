@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="css/owl.carousel.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="css/responsive.css">
+
   </head>
   <body>
    
@@ -54,7 +55,6 @@
             </div>
         </div>
     </div>
-    
     
     <div class="single-product-area">
         <div class="zigzag-bottom"></div>
@@ -92,59 +92,32 @@
                     $pr->execute();
                     $product = $pr->fetchAll(PDO::FETCH_ASSOC);
                 }
-                for ($j=0; $j < ceil(count($product)/12); $j++) {
-                    echo '<div class="row rowids" id="'.strval($j+1).'">';
-                    for ($i=0; $i < 12; $i++) {
-                        if ($product[$i]['foto'] != null) {
-                        echo '<div class="col-md-3 col-sm-6">';
+                $arr_prod = [];
+                for ($i=0; $i < count($product); $i++) {
+                    $arr_prod[] = $i+1;
+                }
+                $arr_ch = array_chunk($arr_prod, 12);
+                for ($j=0; $j < count($product); $j++) {
+                    if ($product[$j]['foto'] != null) {
+                    echo '<div class="col-md-3 col-sm-6">';
                      ?>
-                        <div class="single-shop-product">
-                            <div class="product-upper">
-                                <?php echo '<img src="img/' . $product[$i]['foto'] . '1.png" alt="">'; ?>
-                            </div>
-                            <?php echo '<h2><a href="single-product.php?product=' . $product[$i]['name'] . '&foto=1">' . $product[$i]['name'] . '</a></h2>';?>
-                            <div class="product-carousel-price">
-                                <?php echo '<ins>' . $product[$i]['price'] . ' руб.</ins>'; ?>
-                            </div>
+                    <div class="single-shop-product">
+                        <div class="product-upper">
+                            <?php echo '<img src="img/' . $product[$j]['foto'] . '1.png" alt="">'; ?>
+                        </div>
+                        <?php echo '<h2><a href="single-product.php?product=' . $product[$j]['name'] . '&foto=1">' . $product[$j]['name'] . '</a></h2>';?>
+                        <div class="product-carousel-price">
+                            <?php echo '<ins>' . $product[$j]['price'] . ' руб.</ins>'; ?>
+                        </div>
 
-                            <div class="product-option-shop">
-                                <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="/canvas/shop/?add-to-cart=70">В корзину</a>
-                            </div>
+                        <div class="product-option-shop">
+                            <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="/canvas/shop/?add-to-cart=70">В корзину</a>
                         </div>
                     </div>
-                <?php }}}?>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="product-pagination text-center">
-                        <nav>
-                          <ul class="pagination">
-                            <script>
-                                var li = 1;
-                            </script>
-                            <li>
-                                <a href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                              </a>
-                            </li>
-                            <?php
-                            for ($i=0; $i < ceil(count($product)/12); $i++) {
-                                echo '<li><a href="#'.strval($i+1).'" onclick="function() {
-                                    document.getElementsByClassName(\'rowids\').hidden = true;
-                                    document.getElementById(\''.strval($i+1).'\').hidden = false;
-                                    li='.strval($i+1).'
-                                }">'.strval($i+1).'</a></li>';
-                            } ?>
-                            <li>
-                              <a href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                              </a>
-                            </li>
-                          </ul>
-                        </nav>                        
-                    </div>
-                </div>
+                <?php
+                    }
+                echo("</div>");
+                }?>
             </div>
         </div>
     </div>

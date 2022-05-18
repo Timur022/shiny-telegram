@@ -94,7 +94,7 @@
                         <h2 class="section-title">Последние продукты</h2>
                         <div class="product-carousel">
                             <?php
-                            for ($i=0; $i < 6; $i++) {
+                            for ($i=count($product)-1; $i > count($product)-7; $i--) {
                                 if ($product[$i]['name'] != null) {
                                      ?>
                                     <div class="single-product">
@@ -195,7 +195,7 @@
                         <h2 class="product-wid-title">Новое</h2>
                         <a href="shop.php?sort=new" class="wid-view-more">Смотреть всё</a>
                         <?php
-                            for ($i=0; $i < 3; $i++) {?>
+                            for ($i=count($product)-1; $i > count($product)-4; $i--) {?>
                         <div class="single-wid-product">
                             <?php
                             echo '<a href="single-product.php?product='.$product[$i]['name'].'&foto=1"><img src="img/'.$product[$i]['foto'].'1.png" alt="" class="product-thumb"></a>';
