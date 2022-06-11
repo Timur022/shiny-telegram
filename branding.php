@@ -1,6 +1,6 @@
 <?php
     require_once 'config.php';
-    $co = $dbh->prepare("SELECT * FROM 'composition' WHERE 'user'=".$_COOKIE['id']);
+    $co = $dbh->prepare("SELECT * FROM \"composition\" WHERE \"user\"=$_COOKIE['id']");
     $co->execute();
     $composition = $co->fetchAll(PDO::FETCH_ASSOC);
 	echo '    <div class="site-branding-area">';
