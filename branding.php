@@ -1,8 +1,12 @@
 <?php
     require_once 'config.php';
-    $co = $dbh->prepare("SELECT * FROM composition WHERE user=$_COOKIE[id]");
-    $co->execute();
-    $composition = $co->fetchAll(PDO::FETCH_ASSOC);
+    try{
+	    $co = $dbh->prepare("SELECT * FROM composition WHERE user=$_COOKIE[id]");
+	    $co->execute();
+	    $composition = $co->fetchAll(PDO::FETCH_ASSOC);
+	} catch (PDOException $e) {
+		$composition = null;
+	}
 	echo '    <div class="site-branding-area">';
 	echo '        <div class="container">';
 	echo '            <div class="row">';
