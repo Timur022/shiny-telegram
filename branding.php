@@ -25,7 +25,7 @@
 		echo '                        <a href="cart.php">Корзина - <span class="cart-amunt">' . $compsum . ' руб.</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">' . count($composition) . '</span></a>';
 	}
 	else{
-		echo '                        <a href="cart.php">Корзина - <span class="cart-amunt">0 руб.</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">' . count($composition) . '</span></a>';
+		echo '                        <a href="cart.php">Корзина - <span class="cart-amunt">0 руб.</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">0</span></a>';
 	}
 	echo '                    </div>';
 	echo '                </div>';
