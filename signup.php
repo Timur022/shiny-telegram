@@ -99,14 +99,14 @@
 
                             // Проверка на уникальность логина
 
-                            if($dbh->query("SELECT login FROM user WHERE login='" . $data['login'] . "'")->rowCount() > 0) {
+                            if($dbh->query("SELECT login FROM \"user\" WHERE login='" . $data['login'] . "'")->rowCount() > 0) {
 
                                 $errors[] = "Пользователь с таким логином существует!";
                             }
 
                             // Проверка на уникальность email
 
-                            if($dbh->query("SELECT email FROM user WHERE email='" . $data['email'] . "'")->rowCount() > 0) {
+                            if($dbh->query("SELECT email FROM \"user\" WHERE email='" . $data['email'] . "'")->rowCount() > 0) {
 
                                 $errors[] = "Пользователь с таким Email существует!";
                             }
@@ -114,7 +114,7 @@
 
                             if(empty($errors)) {
 
-                                $dbh->prepare("INSERT INTO user (login, email, hash, entitlement) VALUES (?, ?, ?, ?)")->execute([$data['login'], $data['email'], md5($data['password']), 'user']);
+                                $dbh->prepare("INSERT INTO \"user\" (login, email, hash, entitlement) VALUES (?, ?, ?, ?)")->execute([$data['login'], $data['email'], md5($data['password']), 'user']);
 
                                 echo '<div style="color: green; ">Вы успешно зарегистрированы! Можно <a href="login.php">авторизоваться</a>.</div><hr>';
 
