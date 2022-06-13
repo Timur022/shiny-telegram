@@ -98,7 +98,7 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $us = $dbh->prepare("SELECT * FROM composition WHERE user=".$_COOKIE['id'] );
+                                        $us = $dbh->prepare("SELECT * FROM composition WHERE \"user\"=".$_COOKIE['id']);
                                         $us->execute();
                                         $composition = $us->fetchAll(PDO::FETCH_ASSOC);
                                         for ($i=0; $i < count($composition); $i++) {
@@ -160,13 +160,13 @@
                                         <tr class="shipping">
                                             <th>Доставка и погрузочно-разгрузочные работы</th>
                                             <?php
-                                            $us = $dbh->prepare("SELECT * FROM user WHERE id=".$_COOKIE['id'] );
+                                            $us = $dbh->prepare("SELECT * FROM \"user\" WHERE id=".$_COOKIE['id'] );
                                             $us->execute();
                                             $user_shipp = $us->fetch(PDO::FETCH_ASSOC);
                                             $calc_shipping = 0;
                                             if (isset($_POST['calc_shipping'])) {
                                                 $calc_shipping = 200;
-                                                $dbh->prepare("UPDATE user SET ship=? WHERE id=?")->execute([1, $_COOKIE['id']]);
+                                                $dbh->prepare("UPDATE \"user\" SET ship=? WHERE id=?")->execute([1, $_COOKIE['id']]);
                                             }
                                             if ($user_shipp['ship']==1){
                                                 echo '<td>200 руб.</td>';
