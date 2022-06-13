@@ -63,12 +63,12 @@
         <div class="container">
             <?php
                 if ($_GET['search'] != null){
-                    $pr = $dbh->prepare('SELECT * FROM product WHERE name LIKE "%'.$_GET['search'].'%"');
+                    $pr = $dbh->prepare("SELECT * FROM product WHERE name LIKE '%".$_GET['search']."%'");
                     $pr->execute();
                     $product = $pr->fetchAll(PDO::FETCH_ASSOC);
                 }
                 elseif ($_GET['category'] != null) {
-                    $pr = $dbh->prepare('SELECT * FROM product WHERE category="'.$_GET['category'].'"');
+                    $pr = $dbh->prepare("SELECT * FROM product WHERE category = '".$_GET['category']."'");
                     $pr->execute();
                     $product = $pr->fetchAll(PDO::FETCH_ASSOC);
                 }
