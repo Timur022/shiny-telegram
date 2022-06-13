@@ -106,7 +106,7 @@
                         </div>
 
                         <div class="product-option-shop">
-                            <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="/canvas/shop/?add-to-cart=70">В корзину</a>
+                            <?php echo '<a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="upd_cart.php?product_id='.$product[$j]['id'].'&quantity=1&cart=1">В корзину</a>';?>
                         </div>
                     </div>
                 <?php
