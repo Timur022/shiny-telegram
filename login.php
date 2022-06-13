@@ -9,7 +9,7 @@
      $errors = array();
 
      // Проводим поиск пользователей в таблице users
-     $us = $dbh->prepare("SELECT * FROM user WHERE login = '". $data['login'] . "'");
+     $us = $dbh->prepare('SELECT * FROM "user" WHERE login = "'. $data['login'] . '"');
      $us->execute();
      $user = $us->fetch(PDO::FETCH_ASSOC);
      if($user) {
