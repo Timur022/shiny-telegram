@@ -188,10 +188,14 @@
                                                     <h2>Отзыв</h2>
                                                     <div class="submit-review">
                                                         <?php
-                                                        $us = $dbh->prepare("SELECT * FROM reviews WHERE \"user\" = ". $_COOKIE['id'] . " AND product = ". $single['id']);
-                                                        $us->execute();
-                                                        $reviews = $us->fetch(PDO::FETCH_ASSOC);
-                                                        if ($reviews['id'] != null) {
+                                                        try{
+                                                            $us = $dbh->prepare("SELECT * FROM reviews WHERE \"user\" = ". $_COOKIE['id'] . " AND product = ". $single['id']);
+                                                            $us->execute();
+                                                            $reviews = $us->fetch(PDO::FETCH_ASSOC);
+                                                        } catch (PDOException $e) {
+                                                            $reviews = null;
+                                                        }
+                                                        if ($reviews != null) {
                                                          ?>
                                                         <div class="rating-chooser">
                                                             <p>Ваша оценка</p>
