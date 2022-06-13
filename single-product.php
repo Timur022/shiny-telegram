@@ -82,7 +82,7 @@
                 $dbh->prepare("UPDATE product SET views=? WHERE id=?")->execute([$single['views']+1, $single['id']]);
                 $data = $_POST;
                 if(isset($data['submit'])) {
-                    $dbh->prepare("INSERT INTO reviews (product, user, rate, message) VALUES (?, ?, ?, ?)")->execute([$single['id'], $_COOKIE['id'], $data['rating'], $data['review']]);
+                    $dbh->prepare("INSERT INTO reviews (product, \"user\", rate, message) VALUES (?, ?, ?, ?)")->execute([$single['id'], $_COOKIE['id'], $data['rating'], $data['review']]);
                     $us = $dbh->prepare("SELECT * FROM reviews WHERE product = ". $single['id']);
                     $us->execute();
                     $reviewssold = $us->fetchAll(PDO::FETCH_ASSOC);
@@ -195,7 +195,7 @@
                                                         } catch (PDOException $e) {
                                                             $reviews = null;
                                                         }
-                                                        if ($reviews != null) {
+                                                        if ($reviews['id'] != null) {
                                                          ?>
                                                         <div class="rating-chooser">
                                                             <p>Ваша оценка</p>
