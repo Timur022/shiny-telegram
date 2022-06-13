@@ -3,10 +3,6 @@
     $us = $dbh->prepare("SELECT * FROM product ORDER BY id DESC");
     $us->execute();
     $product = $us->fetchAll(PDO::FETCH_ASSOC);
-    $us = $dbh->prepare("SELECT * FROM \"user\" WHERE id = ".$_COOKIE['id']);
-    $us->execute();
-    $user = $us->fetch(PDO::FETCH_ASSOC);
-    $us_views = $user['last_view'];
 ?>
 <!DOCTYPE html>
 <html lang="ru">
