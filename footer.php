@@ -21,7 +21,6 @@
                         <h2><img src="https://nitshop.ru/wp-content/uploads/2020/12/LOGOTIP1min.png"></h2>
                         <p>Мы в социальных сетях</p>
                         <div class="footer-social">
-                            <a href="#" target="_blank"><i class="fa fa-facebook"></i></a>
                             <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
                             <a href="#" target="_blank"><i class="fa fa-youtube"></i></a>
                             <a href="#" target="_blank"><i class="fa fa-linkedin"></i></a>
