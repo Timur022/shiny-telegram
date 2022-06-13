@@ -384,10 +384,10 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $us = $dbh->prepare("SELECT * FROM user WHERE id=".$_COOKIE['id'] );
+                                            $us = $dbh->prepare("SELECT * FROM \"user\" WHERE id=".$_COOKIE['id'] );
                                             $us->execute();
                                             $user_shipp = $us->fetch(PDO::FETCH_ASSOC);
-                                            $us = $dbh->prepare("SELECT * FROM composition WHERE user=".$_COOKIE['id'] );
+                                            $us = $dbh->prepare("SELECT * FROM composition WHERE \"user\"=".$_COOKIE['id'] );
                                             $us->execute();
                                             $composition = $us->fetchAll(PDO::FETCH_ASSOC);
                                             $table_comp = '<table class="5cecc39b9b313282info-table" cellpadding="0" cellspacing="0" style="border-bottom-color:#222;border-bottom-style:dotted;border-bottom-width:1px;padding:5px 0 5px 0;width:100%"><tbody><tr><td style="padding:5px;text-align:left;vertical-align:top">N</td><td style="padding:5px;text-align:left;vertical-align:top">Наим. пр.</td><td style="padding:5px;text-align:right;vertical-align:top">Цена за ед. пр.</td><td style="padding:5px;text-align:right;vertical-align:top">Колич. пр.</td><td style="padding:5px;text-align:right;vertical-align:top">Стоимость пр.</td></tr>';
@@ -482,8 +482,8 @@
                                 <div class="a02c3ea6ae6091ffirm-name" style="padding:2.5px;text-align:center">ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "НИТ"</div><div class="fd0c0a5385563155firm-inn" style="padding:2.5px;text-align:center">ИНН: <span class="wmi-callto">7736207543</span></div><div class="46ef6b38ce73b33dlocation-address" style="padding:2.5px;text-align:center">141281, Россия, Оренбургская обл., г. Оренбург, пр. Парковый, д. 13</div><div class="5bef35048cf8a97eheader" style="font-size:1.5em;font-weight:bold;padding:5px;text-align:center">Кассовый чек. Приход</div><table class="5cecc39b9b313282info-table" cellpadding="0" cellspacing="0" style="border-bottom-color:#222;border-bottom-style:dotted;border-bottom-width:1px;padding:5px 0 5px 0;width:100%"><tbody><tr><td style="padding:5px 0 5px 0;width:60%">Смена N 22</td><td style="padding:5px 0 5px 0">'.date("d.m.y H:i").'</td></tr></tbody></table>'.$table_comp.'</div></div>';
 
                                 if (mail($to,$subject,$message,$headers)) {
-                                    $dbh->prepare("DELETE FROM composition WHERE user=?")->execute([$_COOKIE['id']]);
-                                    $dbh->prepare("UPDATE user SET ship=? WHERE id=?")->execute([0, $_COOKIE['id']]);
+                                    $dbh->prepare("DELETE FROM composition WHERE \"user\"=?")->execute([$_COOKIE['id']]);
+                                    $dbh->prepare("UPDATE \"user\" SET ship=? WHERE id=?")->execute([0, $_COOKIE['id']]);
 
                                     for ($i=0; $i < count($composition); $i++) {
                                         $us = $dbh->prepare("SELECT * FROM product WHERE id=".$composition[$i]['product'] );
