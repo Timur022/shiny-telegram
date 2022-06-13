@@ -96,7 +96,7 @@
                     $dbh->prepare("UPDATE product SET sr_rate=? WHERE id=?")->execute([$ratesr, $single['id']]);
                 }
                 elseif (isset($data['delete'])) {
-                    $us = $dbh->prepare("SELECT * FROM reviews WHERE user = ". $_COOKIE['id'] . " AND product = ". $single['id']);
+                    $us = $dbh->prepare("SELECT * FROM reviews WHERE \"user\" = ". $_COOKIE['id'] . " AND product = ". $single['id']);
                     $us->execute();
                     $reviews = $us->fetch(PDO::FETCH_ASSOC);
                     $dbh->prepare("DELETE FROM reviews WHERE id=?")->execute([$reviews['id']]);
@@ -188,7 +188,7 @@
                                                     <h2>Отзыв</h2>
                                                     <div class="submit-review">
                                                         <?php
-                                                        $us = $dbh->prepare("SELECT * FROM reviews WHERE user = ". $_COOKIE['id'] . " AND product = ". $single['id']);
+                                                        $us = $dbh->prepare("SELECT * FROM reviews WHERE \"user\" = ". $_COOKIE['id'] . " AND product = ". $single['id']);
                                                         $us->execute();
                                                         $reviews = $us->fetch(PDO::FETCH_ASSOC);
                                                         if ($reviews['id'] != null) {
@@ -268,7 +268,7 @@
                                                 $us->execute();
                                                 $reviewsAll = $us->fetchAll(PDO::FETCH_ASSOC);
                                                 for ($i=0; $i < count($reviewsAll); $i++) {
-                                                    $us = $dbh->prepare("SELECT * FROM user WHERE id = ".$reviewsAll[$i]['user']);
+                                                    $us = $dbh->prepare("SELECT * FROM \"user\" WHERE id = ".$reviewsAll[$i]['user']);
                                                     $us->execute();
                                                     $userrew = $us->fetch(PDO::FETCH_ASSOC);
                                                  ?>
