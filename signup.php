@@ -76,15 +76,15 @@
 
                                 $errors[] = "Повторный пароль введен не верно!";
                             }
-                                 // функция mb_strlen - получает длину строки
+                                 // функция strlen - получает длину строки
                                 // Если логин будет меньше 5 символов и больше 90, то выйдет ошибка
-                            if(mb_strlen($data['login']) < 5 || mb_strlen($data['login']) > 90) {
+                            if(strlen($data['login']) < 5 || strlen($data['login']) > 90) {
 
                                 $errors[] = "Недопустимая длина логина";
 
                             }
 
-                            if (mb_strlen($data['password']) < 8 || mb_strlen($data['password']) > 90){
+                            if (strlen($data['password']) < 8 || strlen($data['password']) > 90){
 
                                 $errors[] = "Недопустимая длина пароля (от 8 символов)";
 
